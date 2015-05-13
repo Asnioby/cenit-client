@@ -1,12 +1,13 @@
 require "cenit/client/version"
-
-require "cenit_client/version"
 require 'openssl'
 require 'httparty'
 require 'active_model/array_serializer'
 
 module Cenit
   module Client
+
+    require "cenit"
+
     def self.push(json_payload, options=self.configuration)
 
       res = HTTParty.post(
@@ -14,9 +15,11 @@ module Cenit
           {
               body: json_payload,
               headers: {
-                  'Content-Type'       => 'application/json',
-                  'X-Hub-Store'        => options[:connection_id],
-                  'X-Hub-Access-Token' => options[:connection_token],
+                  'Content-Type'        => 'application/json',
+                  'X-Hub-Store'         => options[:connection_id]||'',
+                  'X-Hub-Access-Token'  => options[:connection_token]||'',
+                  'X-User-Access-Key'   => options[:user_id]||'',
+                  'X-User-Access-Token' => options[:user_token]||'',
                   'X-Hub-Timestamp'    => Time.now.utc.to_i.to_s
               }
           }

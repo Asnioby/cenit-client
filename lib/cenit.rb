@@ -1,7 +1,6 @@
 require 'cenit/client'
 
 module Cenit
-  module Client
     class << self
       attr_accessor :configuration
     end
@@ -12,11 +11,10 @@ module Cenit
     end
 
     class Configuration
-      attr_accessor :connection_id, :connection_token, :push_url
+      attr_accessor :connection_id, :connection_token, :user_id, :user_token, :push_url
 
       def initialize
         @push_url = 'https://www.cenithub.com/api/v1/push'
       end
     end
-  end
 end
